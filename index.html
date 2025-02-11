@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Calculator 🍪</title>
+    <style>
+        :root {
+            --primary: #ff9f4a;
+            --secondary: #6d4c41;
+            --accent: #ffd8a6;
+        }
+
+        body {
+            font-family: 'Short Stack', cursive;
+            background: var(--accent);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><circle cx="50" cy="50" r="40" fill="%23fff" stroke="%23ff9f4a" stroke-width="2"/><circle cx="30" cy="30" r="5" fill="%23ff9f4a"/><circle cx="70" cy="30" r="7" fill="%23ff9f4a"/><circle cx="60" cy="60" r="6" fill="%23ff9f4a"/></svg>');
+            background-size: 120px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 4px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: var(--secondary);
+            text-align: center;
+            margin: 0 0 2rem;
+            font-size: 2.5rem;
+        }
+
+        .cookie-icon {
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        #results {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--accent);
+            border-radius: 15px;
+            border: 2px dashed var(--secondary);
+        }
+
+        .result-item {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .tip {
+            color: var(--secondary);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        /* Cookie decorations */
+        .cookie-bg {
+            position: absolute;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Short+Stack&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Cookie Calculator 🍪</h1>
+        
+        <div class="form-group">
+            <label for="guests">Number of Guests</label>
+            <input type="number" id="guests" min="1" value="10">
+        </div>
+
+        <div class="form-group">
+            <label for="cookies">Cookies per Person</label>
+            <input type="number" id="cookies" min="1" value="3">
+        </div>
+
+        <div class="form-group">
+            <label for="diet">Dietary Preferences</label>
+            <select id="diet">
+                <option value="none">None</option>
+                <option value="vegan">Vegan</option>
+                <option value="gluten-free">Gluten-Free</option>
+                <option value="nut-free">Nut-Free</option>
+            </select>
+        </div>
+
+        <div id="results">
+            <div class="result-item">Total Cookies: <span id="total">30</span> 🍪</div>
+            <div class="result-item">Baking Time: <span id="time">45</span> minutes ⏲️</div>
+            <div class="tip" id="tip">Pro tip: Double the batch for leftovers!</div>
+        </div>
+    </div>
+
+    <script>
+        const tips = [
+            "Double the batch for leftovers!",
+            "Add chocolate chips for extra joy!",
+            "Let cookies cool completely before storing",
+            "Use parchment paper for easy cleanup",
+            "Rotate baking sheets halfway through",
+            "Warm cookies make perfect ice cream sandwiches!"
+        ];
+
+        function calculate() {
+            const guests = parseInt(document.getElementById('guests').value) || 0;
+            const cookies = parseInt(document.getElementById('cookies').value) || 0;
+            const total = guests * cookies;
+            
+            // Calculate baking time (15 minutes per 10 cookies)
+            const batches = Math.ceil(total / 10);
+            const bakingTime = batches * 15;
+
+            // Update results
+            document.getElementById('total').textContent = total;
+            document.getElementById('time').textContent = bakingTime;
+            document.getElementById('tip').textContent = tips[Math.floor(Math.random() * tips.length)];
+            document.getElementById('results').style.display = 'block';
+        }
+
+        // Add event listeners
+        document.querySelectorAll('input, select').forEach(element => {
+            element.addEventListener('input', calculate);
+        });
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
